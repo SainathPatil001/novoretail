@@ -21,6 +21,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("Sai@3201");
   const [repassword, setRePassword] = useState("Sai@3201");
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false)
+
   const {setShowAlertMessage,setAlertColor,setAlertMessage,setisAuthenticated} =useContext(IsAuthContext)
 
   const handleEmail = (e) => {
@@ -114,7 +116,7 @@ export default function SignUp() {
 
   const handleSubmit=(e)=>{
     e.preventDefault()
-      
+    setLoading(true) 
     if(name.length>=3 && isEmail(email) && isStrongPassword(password) && password===repassword)
     {
       const data = { name,email,password};
@@ -130,6 +132,8 @@ export default function SignUp() {
          
         if(data.success)
         {
+    setLoading(false) 
+
           setShowAlertMessage(true);
            setAlertColor("success");
            setAlertMessage("User Created Successfuly!")
@@ -143,6 +147,8 @@ export default function SignUp() {
           history("/home")
         }
         else{
+    setLoading(false) 
+
           setShowAlertMessage(true);
           setAlertColor("danger");
           setAlertMessage("User Already Exits!")
@@ -166,6 +172,8 @@ export default function SignUp() {
   }
   return (
     <div className="mainFormContainer">
+      <div class="loader" style={{display:loading?"block":"none"}}></div>
+
       <div className="loginTitle">
         <h2>SignUp</h2>
       </div>

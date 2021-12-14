@@ -11,6 +11,7 @@ export default function Login() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
 
   const history=useNavigate()
     const handleEmail=(e)=>{
@@ -31,7 +32,7 @@ export default function Login() {
     
     const handleSubmit=(e)=>{
         e.preventDefault()
-          
+          setLoading(true)
           const data = {email,password};
           console.log(data);
           fetch('https://novoretailbackend.herokuapp.com/login', {
@@ -46,6 +47,8 @@ export default function Login() {
              
             if(data.success)
             {
+          setLoading(false)
+
               setShowAlertMessage(true);
                setAlertColor("success");
                setAlertMessage("Loged In Successfuly!")
@@ -59,6 +62,7 @@ export default function Login() {
               history("/home")
             }
             else{
+              setLoading(false)
               setShowAlertMessage(true);
               setAlertColor("danger");
               setAlertMessage("Invalid Credentials!")
@@ -80,7 +84,9 @@ export default function Login() {
 
     
     return (
+      <>
         <div className='mainFormContainer'>
+      <div class="loader" style={{display:loading?"block":"none"}}></div>
             
             <div className="loginTitle">
                 <h2>Login</h2>
@@ -99,5 +105,6 @@ export default function Login() {
                 <p>Don't have an Account Please <Link to="/signup">SignUp!</Link></p>
             </div>
         </div>
+        </>
     )
 }
