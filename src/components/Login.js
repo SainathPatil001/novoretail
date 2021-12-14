@@ -34,7 +34,7 @@ export default function Login() {
           
           const data = {email,password};
           console.log(data);
-          fetch('http://localhost:8000/login', {
+          fetch('https://novoretailbackend.herokuapp.com/login', {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',

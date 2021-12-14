@@ -118,7 +118,7 @@ export default function SignUp() {
     if(name.length>=3 && isEmail(email) && isStrongPassword(password) && password===repassword)
     {
       const data = { name,email,password};
-      fetch('http://localhost:8000/signup', {
+      fetch('https://novoretailbackend.herokuapp.com/signup', {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
