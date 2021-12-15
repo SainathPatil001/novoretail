@@ -18,8 +18,8 @@ export default function SignUp() {
   const repasswordRef = createRef();
   const repasswordSpanRef = createRef();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("Sai@3201");
-  const [repassword, setRePassword] = useState("Sai@3201");
+  const [password, setPassword] = useState("");
+  const [repassword, setRePassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false)
   const [disable, setDisable] = useState(false)
@@ -117,6 +117,11 @@ export default function SignUp() {
 
   const handleSubmit=(e)=>{
     e.preventDefault()
+
+    if(!name.length>=3 || !isEmail(email) || !isStrongPassword(password) || password!==repassword){
+      console.log("in if");
+        return;
+    }
     setLoading(true) 
     setDisable(true)
     if(name.length>=3 && isEmail(email) && isStrongPassword(password) && password===repassword)
@@ -198,7 +203,7 @@ export default function SignUp() {
             ref={nameRef}
             name="name"
             placeholder="Name"
-            
+            required
             value={name}
             onChange={handleName}
             onBlur={(e)=>{
@@ -216,7 +221,7 @@ export default function SignUp() {
             ref={emailRef}
             name="email"
             placeholder="Email"
-        
+        required
             value={email}
             onChange={handleEmail}
             onBlur={(e)=>{
@@ -237,6 +242,7 @@ export default function SignUp() {
             value={password}
             ref={passwordRef}
             onChange={handlePassword}
+            required
             onBlur={(e)=>{
               if(e.target.value==="")
               {
@@ -256,6 +262,7 @@ export default function SignUp() {
             value={repassword}
             onChange={handleRePassword}
             ref={repasswordRef}
+            required
             onBlur={(e)=>{
               if(e.target.value==="")
               {
