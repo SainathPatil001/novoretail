@@ -12,6 +12,7 @@ export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
+    const [disable, setDisable] = useState(false)
 
   const history=useNavigate()
     const handleEmail=(e)=>{
@@ -33,6 +34,7 @@ export default function Login() {
     const handleSubmit=(e)=>{
         e.preventDefault()
           setLoading(true)
+          setDisable(true)
           const data = {email,password};
           console.log(data);
           fetch('https://novoretailbackend.herokuapp.com/login', {
@@ -44,6 +46,7 @@ export default function Login() {
           })
           .then(response => response.json())
           .then(data => {
+          setDisable(false)
              
             if(data.success)
             {
@@ -73,6 +76,15 @@ export default function Login() {
             }
           })
           .catch((error) => {
+            setDisable(false)
+setLoading(false)
+            setShowAlertMessage(true);
+            setAlertColor("danger");
+            setAlertMessage("Something Went Wrong!")
+            setTimeout(() => {
+             setShowAlertMessage(false)
+            }, 3000);
+                console.error('Error:', error);
             console.error('Error:', error);
           });
     
@@ -97,7 +109,7 @@ export default function Login() {
                      <input type="email" name="email" placeholder="Email" id="" value={email} onChange={handleEmail}/>
                      <label htmlFor="password">Password:</label>
                      <input type="password"  placeholder="Password"name='password' value={password} onChange={handlePassword}/>
-                     <button type="submit">Login</button>
+                     <button type="submit" disabled={disable}>Login</button>
                  </form>
             </div>
 

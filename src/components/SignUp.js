@@ -22,6 +22,7 @@ export default function SignUp() {
   const [repassword, setRePassword] = useState("Sai@3201");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false)
+  const [disable, setDisable] = useState(false)
 
   const {setShowAlertMessage,setAlertColor,setAlertMessage,setisAuthenticated} =useContext(IsAuthContext)
 
@@ -117,6 +118,7 @@ export default function SignUp() {
   const handleSubmit=(e)=>{
     e.preventDefault()
     setLoading(true) 
+    setDisable(true)
     if(name.length>=3 && isEmail(email) && isStrongPassword(password) && password===repassword)
     {
       const data = { name,email,password};
@@ -133,7 +135,7 @@ export default function SignUp() {
         if(data.success)
         {
     setLoading(false) 
-
+  setDisable(false)
           setShowAlertMessage(true);
            setAlertColor("success");
            setAlertMessage("User Created Successfuly!")
@@ -148,6 +150,7 @@ export default function SignUp() {
         }
         else{
     setLoading(false) 
+    setDisable(false)
 
           setShowAlertMessage(true);
           setAlertColor("danger");
@@ -159,12 +162,22 @@ export default function SignUp() {
         }
       })
       .catch((error) => {
+    setLoading(false) 
+  setDisable(false)
+
+    setShowAlertMessage(true);
+    setAlertColor("danger");
+    setAlertMessage("Something Went Wrong!")
+    setTimeout(() => {
+     setShowAlertMessage(false)
+    }, 3000);
         console.error('Error:', error);
       });
 
     }
     else{
-       
+     
+
     }
 
 // console.log("hello");
@@ -252,7 +265,7 @@ export default function SignUp() {
           />
           <span ref={repasswordSpanRef} style={{display:"none"}}>Password don't match</span>
 
-          <button type="submit">SignUp</button>
+          <button type="submit" disabled={disable}>SignUp</button>
         </form>
       </div>
 
@@ -262,3 +275,6 @@ export default function SignUp() {
     </div>
   );
 }
+
+// TODO:disable button while signup login
+// TODO: haldle error something went wrong from backend
