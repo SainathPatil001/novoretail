@@ -4,7 +4,7 @@
     height: 100%;
     width: 95%;
     overflow: hidden;
-    margin: 1em auto;
+    margin: 0.5em auto;
     display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -74,5 +74,17 @@
 
 .graphTitle{
     text-align: center;
-    margin-top: 0.5em;
+    
+}
+
+.homeContainer button{
+    padding: 0.8em 2em;
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    margin-top: 1em;
+}
+.homeContainer button:hover{
+    background-color: #0a5ac4;
+
 }

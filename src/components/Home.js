@@ -5,13 +5,21 @@ import GraphContainer3 from './GraphContainer3'
 import "./home.css"
 import imgPrev from "./prevbtn.png"
 import imgNext from "./nextbtn.png"
+import { useNavigate } from 'react-router-dom'
 export default function Home() {
 
     const [graphContainerCount, setGraphContainerCount] = useState(1)
  
-    // console.log();
+    const navigate=useNavigate()
     return (
         <div className='homeContainer'>
+
+            <button onClick={()=>{
+
+                localStorage.removeItem("isAuthenticated")
+            // <Navigate to="/login"></Navigate>
+            navigate("/login")
+            }}>logout</button>
             <div className='graphContainer'>
 
                 {graphContainerCount===1?<GraphContainer1></GraphContainer1>:graphContainerCount===2?<GraphContainer2></GraphContainer2>:<GraphContainer3></GraphContainer3>}
