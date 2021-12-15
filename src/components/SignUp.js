@@ -190,7 +190,7 @@ export default function SignUp() {
   }
   return (
     <div className="mainFormContainer">
-      <div class="loader" style={{display:loading?"block":"none"}}></div>
+      <div className="loader" style={{display:loading?"block":"none"}}></div>
 
       <div className="loginTitle">
         <h2>SignUp</h2>

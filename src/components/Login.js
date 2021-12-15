@@ -32,11 +32,17 @@ export default function Login() {
     }
     
     const handleSubmit=(e)=>{
-        e.preventDefault()
+      e.preventDefault()
+      if(email==="" || password==="")
+      {
+        // console.log("in if");
+        return;
+      }
+        
           setLoading(true)
           setDisable(true)
           const data = {email,password};
-          console.log(data);
+          // console.log(data);
           fetch('https://novoretailbackend.herokuapp.com/login', {
             method: 'POST', // or 'PUT'
             headers: {
@@ -98,7 +104,7 @@ setLoading(false)
     return (
       <>
         <div className='mainFormContainer'>
-      <div class="loader" style={{display:loading?"block":"none"}}></div>
+      <div className="loader" style={{display:loading?"block":"none"}}></div>
             
             <div className="loginTitle">
                 <h2>Login</h2>
@@ -106,9 +112,9 @@ setLoading(false)
             <div className="form">
                  <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
-                     <input type="email" name="email" placeholder="Email" id="" value={email} onChange={handleEmail}/>
+                     <input type="email" required name="email" placeholder="Email" id="" value={email} onChange={handleEmail}/>
                      <label htmlFor="password">Password:</label>
-                     <input type="password"  placeholder="Password"name='password' value={password} onChange={handlePassword}/>
+                     <input type="password" required placeholder="Password"name='password' value={password} onChange={handlePassword}/>
                      <button type="submit" disabled={disable}>Login</button>
                  </form>
             </div>
